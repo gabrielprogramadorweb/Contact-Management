@@ -5,7 +5,7 @@
 
 @section('content')
     <style>
-        .index{
+        .index {
             margin-top: 75px !important;
             left: 50%;
             transform: translateX(50%);
@@ -32,7 +32,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Nome</th>
-                            <th>Contacto</th>
+                            <th>Contato</th>
                             <th>Email</th>
                             <th class="text-center">Ações</th>
                         </tr>
@@ -62,6 +62,16 @@
                         </tbody>
                     </table>
                 </div>
+
+                <!-- Paginação -->
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <span>Mostrando {{ $contacts->firstItem() }} a {{ $contacts->lastItem() }} de {{ $contacts->total() }} contatos</span>
+                    </div>
+                    <div>
+                        {{ $contacts->links('pagination::bootstrap-4') }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -89,7 +99,6 @@
         </div>
     </div>
 
-
     <!-- Script para Gerenciar o Modal -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -103,6 +112,5 @@
                 deleteForm.action = actionUrl;
             });
         });
-
     </script>
 @endsection
