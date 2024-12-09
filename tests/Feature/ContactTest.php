@@ -5,17 +5,20 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\Contact;
-
+use App\Models\User;
 class ContactTest extends TestCase
 {
     use RefreshDatabase;
 
     public function test_create_contact()
     {
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
         $data = [
-            'name' => 'John Doe',
+            'name' => 'Teste Contato',
             'contact' => '123456789',
-            'email' => 'johndoe@example.com',
+            'email' => 'teste@email.com',
         ];
 
         $response = $this->post('/contacts', $data);

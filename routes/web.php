@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Route;
 
 // Página inicial que lista os contatos
 Route::get('/', [ContactController::class, 'index'])->name('contacts.index');
-Route::get('/contacts/{contact}', [ContactController::class, 'show'])->name('contacts.show');
 
 // Rotas protegidas por autenticação
 Route::middleware('auth')->group(function () {
@@ -22,6 +21,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/contacts/{contact}', [ContactController::class, 'show'])->name('contacts.show');
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
