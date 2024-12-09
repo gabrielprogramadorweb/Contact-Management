@@ -18,7 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::resource('contacts', ContactController::class)->except('index');
+//Route::middleware(['auth'])->group(function () {
+//    Route::resource('contacts', ContactController::class)->except('index');
+//});
+Route::get('/', function () {
+    return redirect('/contacts');
 });
 
+Route::resource('contacts', ContactController::class);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Contact;
 
 class ContactController extends Controller
 {
@@ -28,16 +29,16 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|min:6',
             'contact' => 'required|digits:9|unique:contacts,contact',
             'email' => 'required|email|unique:contacts,email',
         ]);
 
-        Contact::create($request->all());
+        Contact::create($validated);
+
         return redirect()->route('contacts.index')->with('success', 'Contato criado com sucesso!');
     }
-
 
     /**
      * Display the specified resource.
@@ -62,13 +63,14 @@ class ContactController extends Controller
      */
     public function update(Request $request, Contact $contact)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|min:6',
             'contact' => 'required|digits:9|unique:contacts,contact,' . $contact->id,
             'email' => 'required|email|unique:contacts,email,' . $contact->id,
         ]);
 
-        $contact->update($request->all());
+        $contact->update($validated);
+
         return redirect()->route('contacts.index')->with('success', 'Contato atualizado com sucesso!');
     }
 
