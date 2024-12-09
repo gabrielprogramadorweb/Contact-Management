@@ -4,7 +4,14 @@
 @section('page-heading', 'Lista de Contatos')
 
 @section('content')
-    <div class="container mt-5">
+    <style>
+        .index{
+            margin-top: 75px !important;
+            left: 50%;
+            transform: translateX(50%);
+        }
+    </style>
+    <div class="container index">
         <div class="row justify-content-between align-items-center mb-4">
             <div class="col-auto">
                 <h1 class="h3 text-primary">@yield('page-heading')</h1>
@@ -38,7 +45,9 @@
                                 <td>{{ $contact->contact }}</td>
                                 <td>{{ $contact->email }}</td>
                                 <td class="text-center">
-                                    <a href="{{ route('contacts.show', $contact->id) }}" class="btn btn-info btn-sm shadow-sm">Ver</a>
+                                    <a href="{{ route('contacts.show', $contact->id) }}" class="btn btn-info btn-sm shadow-sm">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
                                     <a href="{{ route('contacts.edit', $contact->id) }}" class="btn btn-warning btn-sm shadow-sm">Editar</a>
                                     <button type="button" class="btn btn-danger btn-sm shadow-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" data-contact-id="{{ $contact->id }}">
                                         Excluir
@@ -69,7 +78,7 @@
                     <p class="text-muted">Tem certeza de que deseja excluir este contato? Esta ação é irreversível.</p>
                 </div>
                 <div class="modal-footer">
-                    <form id="deleteForm" method="POST">
+                    <form id="deleteForm" method="POST" action="">
                         @csrf
                         @method('DELETE')
                         <button type="button" class="btn btn-secondary shadow-sm" data-bs-dismiss="modal">Cancelar</button>
@@ -79,6 +88,7 @@
             </div>
         </div>
     </div>
+
 
     <!-- Script para Gerenciar o Modal -->
     <script>
@@ -93,5 +103,6 @@
                 deleteForm.action = actionUrl;
             });
         });
+
     </script>
 @endsection

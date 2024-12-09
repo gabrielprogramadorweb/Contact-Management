@@ -4,7 +4,16 @@
 @section('page-heading', 'Editar Contato')
 
 @section('content')
-    <div class="container mt-5">
+    <style>
+        .edit{
+            width: 430px;
+            position: relative;
+            margin-top: 75px !important;
+            left: 50%;
+            transform: translateX(50%);
+        }
+    </style>
+    <div class="container edit">
         <div class="row justify-content-between align-items-center mb-3">
             <div class="col-auto">
                 <h1 class="h3 text-primary">@yield('page-heading')</h1>

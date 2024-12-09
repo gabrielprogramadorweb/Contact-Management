@@ -1,7 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mt-5">
+    <style>
+        .create {
+            position: relative;
+            margin-top: 75px !important;
+            left: 50%;
+            transform: translateX(50%);
+        }
+    </style>
+    <div class="container create">
         <div class="row justify-content-between align-items-center mb-4">
             <div class="col-auto">
                 <h1 class="h3 text-primary">Adicionar Novo Contato</h1>

@@ -24,6 +24,7 @@
             position: fixed;
             width: 250px;
             top: 56px;
+            margin-top: 17px;
             left: 0;
             overflow-y: auto;
             transition: all 0.3s ease;
@@ -84,20 +85,18 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
     <div class="container-fluid">
         <div class="d-flex justify-content-center w-100">
-
-        <a class="navbar-brand ms-3" href="{{ url('/') }}">
-            <img src="{{ asset('img/logo.png') }}" alt="Logo" style="width: 140px; ">
-        </a>
+            <a class="navbar-brand ms-3" href="{{ url('/') }}">
+                <img src="{{ asset('img/logo.png') }}" alt="Logo" style="width: 140px;">
+            </a>
         </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
     </div>
 </nav>
 
 <!-- Sidebar -->
-<div id="sidebar">
+<div id="sidebar" class="collapsed">
     <ul class="nav flex-column">
         <li class="nav-item">
             <a href="{{ route('contacts.index') }}" class="nav-link sidebar-link"><i class="fa fa-address-book"></i> Contatos</a>
@@ -113,11 +112,11 @@
 
 <!-- Sidebar Toggle Button -->
 <button id="toggleSidebar" class="collapsed">
-    <i class="fa fa-bars"></i>
+    <i class="fa fa-chevron-right"></i>
 </button>
 
 <!-- Content -->
-<div id="content">
+<div id="content" class="collapsed">
     @yield('content')
 </div>
 
@@ -129,6 +128,10 @@
         const content = document.getElementById('content');
         const toggleButton = document.getElementById('toggleSidebar');
 
+        sidebar.classList.add('collapsed');
+        content.classList.add('collapsed');
+        toggleButton.innerHTML = '<i class="fa fa-chevron-right"></i>';
+
         toggleButton.addEventListener('click', function () {
             sidebar.classList.toggle('collapsed');
             content.classList.toggle('collapsed');
@@ -137,7 +140,7 @@
             if (sidebar.classList.contains('collapsed')) {
                 toggleButton.innerHTML = '<i class="fa fa-chevron-right"></i>';
             } else {
-                toggleButton.innerHTML = '<i class="fa fa-bars"></i>';
+                toggleButton.innerHTML = '<i class="fa fa-chevron-left"></i>';
             }
         });
     });
