@@ -4,12 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Contact Management')</title>
-
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     <style>
         body {
@@ -19,8 +16,8 @@
 
         #sidebar {
             height: 100vh;
-            background-color: #343a40;
-            color: white;
+            background-color: white;
+            color: #343a40;
             position: fixed;
             width: 250px;
             top: 56px;
@@ -28,6 +25,8 @@
             left: 0;
             overflow-y: auto;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
         }
 
         #sidebar.collapsed {
@@ -47,13 +46,13 @@
 
         .sidebar-link {
             text-decoration: none;
-            color: white;
+            color: #343a40;
             padding: 10px 20px;
             display: block;
         }
 
         .sidebar-link:hover {
-            background-color: #495057;
+            background-color: #0D6EFD;
             color: white;
         }
 
@@ -80,6 +79,7 @@
     </style>
 </head>
 <body>
+<div id="toastr-messages"></div>
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
@@ -95,9 +95,7 @@
     </div>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
-            <!-- Verificar se o usuário está autenticado -->
             @if (Auth::check())
-                <!-- Logout Button -->
                 <li class="nav-item">
                     <form action="{{ route('logout') }}" method="POST" class="d-inline">
                         @csrf
@@ -111,7 +109,6 @@
     </div>
 </nav>
 
-<!-- Sidebar -->
 <div id="sidebar" class="collapsed">
     <ul class="nav flex-column">
         <li class="nav-item">
@@ -123,17 +120,18 @@
     </ul>
 </div>
 
-<!-- Sidebar Toggle Button -->
 <button id="toggleSidebar" class="collapsed">
     <i class="fa fa-chevron-right"></i>
 </button>
 
-<!-- Content -->
 <div id="content" class="collapsed">
     @yield('content')
 </div>
 
-<!-- Bootstrap JS -->
+<div id="content" class="collapsed">
+    <div id="toastr-messages"></div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -141,7 +139,6 @@
         const content = document.getElementById('content');
         const toggleButton = document.getElementById('toggleSidebar');
 
-        // Inicializa o estado do botão como fechado
         sidebar.classList.add('collapsed');
         content.classList.add('collapsed');
         toggleButton.innerHTML = '<i class="fa fa-chevron-right"></i>';
@@ -157,6 +154,7 @@
                 toggleButton.innerHTML = '<i class="fa fa-chevron-left"></i>';
             }
         });
+
     });
 </script>
 </body>
