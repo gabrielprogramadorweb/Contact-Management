@@ -23,22 +23,27 @@ class ContactTest extends TestCase
 
         $response = $this->post('/contacts', $data);
 
-        $response->assertRedirect('/contacts');
+        $response->assertRedirect('/');
         $this->assertDatabaseHas('contacts', $data);
     }
 
     public function test_view_contacts_list()
     {
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
         Contact::factory(5)->create();
 
-        $response = $this->get('/contacts');
-
+        $response = $this->get('/');
         $response->assertOk();
         $response->assertViewHas('contacts');
     }
 
     public function test_update_contact()
     {
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
         $contact = Contact::factory()->create();
 
         $data = [
@@ -49,17 +54,21 @@ class ContactTest extends TestCase
 
         $response = $this->put("/contacts/{$contact->id}", $data);
 
-        $response->assertRedirect('/contacts');
+        $response->assertRedirect('/');
         $this->assertDatabaseHas('contacts', $data);
     }
 
     public function test_delete_contact()
     {
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
         $contact = Contact::factory()->create();
 
         $response = $this->delete("/contacts/{$contact->id}");
 
-        $response->assertRedirect('/contacts');
+        $response->assertRedirect('/');
         $this->assertSoftDeleted('contacts', ['id' => $contact->id]);
     }
+
 }
