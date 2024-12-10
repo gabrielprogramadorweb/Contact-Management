@@ -25,7 +25,6 @@
             overflow-y: auto;
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
         }
 
         #sidebar.collapsed {
@@ -114,6 +113,13 @@
                         </li>
                     </ul>
                 </li>
+            @else
+                <li class="nav-item" style="margin-right: 6px;">
+                    @if (!Auth::check() && Route::currentRouteName() !== 'login')
+                        <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
+                    @endif
+                </li>
+
             @endif
         </ul>
     </div>
@@ -160,7 +166,6 @@
                 toggleButton.innerHTML = '<i class="fa fa-chevron-left"></i>';
             }
         });
-
     });
 </script>
 </body>
