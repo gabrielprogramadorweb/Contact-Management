@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.base')
 
 @section('title', 'Lista de Contatos')
 @section('page-heading', 'Lista de Contatos')
-
+<x-slot name="title">Página de Contactos</x-slot>
 @section('content')
     <style>
         .index {
@@ -99,7 +99,6 @@
         </div>
     </div>
 
-    <!-- Script para Gerenciar o Modal -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const deleteModal = document.getElementById('deleteModal');
